@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect} from 'react'
+import {Grid} from '@mui/material'
+import axios from 'axios'
+import MasterView from './MasterView.js'
+import DetailView from './DetailView.js'
+import InitialView from './InitialView.js'
 
-function App() {
+const App = () => {
+  const [products, setProducts] = useState([])
+  const [selectedProduct, setSelectedProduct] = useState(null)
+
+  useEffect(() => {
+    axios
+      .get('https://fakestoreapi.com/products')
+      .then((response) => setProducts(response.data))
+      .catch((error) => console.log(error))
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
+          <MasterView
+            products={products}
+            setSelectedProduct={setSelectedProduct}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+        {selectedProduct ? (
+            <DetailView selectedProduct={selectedProduct} />
+          ) : (
+            <InitialView />
+          )}
+        </Grid>
+      </Grid>
+    </>
+  )
 }
 
-export default App;
+export default App
