@@ -1,6 +1,5 @@
 import React from 'react'
 import {Box, Typography} from '@mui/material'
-import DetailView from './DetailView'
 
 const Header = ({selectedProduct}) => {
   return (
