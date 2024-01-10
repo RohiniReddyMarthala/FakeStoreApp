@@ -4,6 +4,7 @@ import axios from 'axios'
 import MasterView from './MasterView.js'
 import DetailView from './DetailView.js'
 import InitialView from './InitialView.js'
+import Header from './Header.js'
 
 const App = () => {
   const [products, setProducts] = useState([])
@@ -18,6 +19,7 @@ const App = () => {
 
   return (
     <>
+    <Header selectedProduct={selectedProduct} />
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <MasterView
